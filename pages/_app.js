@@ -1,4 +1,5 @@
 import { SessionProvider } from "next-auth/react"
+import '../styles/globals.css'
 
 //wrap application in session provider
 //allowing

@@ -28,7 +28,7 @@ export default function Home() {
   }, [session])
 
   return (
-    <main className=''>
+    <main className='flex flex-col items-center w-full'>
       <div>access token: {x}</div>
       <div>
         {playlists.map((playlist) => <div key={playlist.id}>{playlist.name}</div>)}
