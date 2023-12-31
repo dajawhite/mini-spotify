@@ -35,7 +35,9 @@ export default function Home() {
           setGlobalIsTrackPlaying={setGlobalIsTrackPlaying}
         />}
         {view === "search" && <Search/>}
-        {view === "library" && <Library/>}
+        {view === "library" && <Library
+        setView={setView} // this is how sidebar component will be able to change the main view
+        setGlobalPlaylistId={setGlobalPlaylistId}/>}
         {view === "artist" && <Artist/>}
        </div>
 
