@@ -14,7 +14,7 @@ const colors = [
     'from-purple-500'
 ]
 
-const PlaylistView = ({globalPlaylistId}) => {
+const PlaylistView = ({globalPlaylistId, setGlobalCurrentSongId, setGlobalIsTrackPlaying}) => {
     const {data:session} = useSession()
     const [playlistData, setPlaylistData] = useState(null)
     const [color, setColor] = useState(colors[0])
@@ -64,7 +64,10 @@ const PlaylistView = ({globalPlaylistId}) => {
   return (
     <div className='flex-grow h-screen'>
         <header style={{opacity: opacity}} className='text-white sticky top-0 h-20 z-10 text-4xl bg-neutral-800 p-8 flex items-center font-bold'>
-            <div style={{opacity: textOpacity}}>{playlistData?.name}</div>
+            <div style={{opacity: textOpacity}} className='flex items-center '>
+                {playlistData && <img className='h-8 w-8 mr-6' src={playlistData?.images[0].url}/>}
+                <p>{playlistData?.name}</p>
+            </div>
         </header>
         <div className='absolute z-20 top-5 right-8 flex items-center bg-black bg-opacity-70 text-white space-x-3 opacity-90 hover:opacity-80 cursor-pointer rounded-full p-1 pr-2'>
             <img className='rounded-full w-7 h-7' src={session?.user.image} alt='Profile pic'/>
@@ -82,7 +85,13 @@ const PlaylistView = ({globalPlaylistId}) => {
             <div className='text-white px-8 flex-col flex space-y-1 pb-28'>
                 {playlistData?.tracks.items.map((track, i) => {
                     // song component
-                    return <Song key={track.track.id} sno={i} track={track.track}/>
+                    return <Song 
+                        setGlobalCurrentSongId={setGlobalCurrentSongId}
+                        key={track.track.id} 
+                        sno={i} 
+                        track={track.track}
+                        setGlobalIsTrackPlaying={setGlobalIsTrackPlaying}
+                        />
                 })}
             </div>
         </div>
