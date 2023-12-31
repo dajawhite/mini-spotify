@@ -64,7 +64,6 @@ const Player = ({globalCurrentSongId, setGlobalCurrentSongId, setGlobalIsTrackPl
     
   }
 
-
   useEffect(()=>{
     //fetch details of song & play
     async function f(){
