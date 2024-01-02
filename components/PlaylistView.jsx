@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { ChevronDownIcon } from '@heroicons/react/24/outline'
 import { shuffle } from 'lodash'
 import Song from './Song'
@@ -14,7 +14,7 @@ const colors = [
     'from-purple-500'
 ]
 
-const PlaylistView = ({globalPlaylistId, setGlobalCurrentSongId, setGlobalIsTrackPlaying}) => {
+const PlaylistView = ({globalPlaylistId, setGlobalCurrentSongId, setGlobalIsTrackPlaying, setView, setGlobalArtistId}) => {
     const {data:session} = useSession()
     const [playlistData, setPlaylistData] = useState(null)
     const [color, setColor] = useState(colors[0])
@@ -69,7 +69,7 @@ const PlaylistView = ({globalPlaylistId, setGlobalCurrentSongId, setGlobalIsTrac
                 <p>{playlistData?.name}</p>
             </div>
         </header>
-        <div className='absolute z-20 top-5 right-8 flex items-center bg-black bg-opacity-70 text-white space-x-3 opacity-90 hover:opacity-80 cursor-pointer rounded-full p-1 pr-2'>
+        <div  onClick={() => signOut()} className='absolute z-20 top-5 right-8 flex items-center bg-black bg-opacity-70 text-white space-x-3 opacity-90 hover:opacity-80 cursor-pointer rounded-full p-1 pr-2'>
             <img className='rounded-full w-7 h-7' src={session?.user.image} alt='Profile pic'/>
             <p className='text-sm'>Logout</p>
             <ChevronDownIcon className='h-5 w-5'/>
@@ -86,6 +86,8 @@ const PlaylistView = ({globalPlaylistId, setGlobalCurrentSongId, setGlobalIsTrac
                 {playlistData?.tracks.items.map((track, i) => {
                     // song component
                     return <Song 
+                        setView={setView}
+                        setGlobalArtistId={setGlobalArtistId}
                         setGlobalCurrentSongId={setGlobalCurrentSongId}
                         key={track.track.id} 
                         sno={i} 
