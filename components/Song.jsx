@@ -2,7 +2,7 @@ import { PlayIcon } from '@heroicons/react/24/solid';
 import { useSession } from 'next-auth/react';
 import React, { useState } from 'react'
 
-const Song = ({sno, track, setGlobalCurrentSongId, setGlobalIsTrackPlaying}) => {
+const Song = ({sno, track, setGlobalCurrentSongId, setGlobalIsTrackPlaying, setView, setGlobalArtistId}) => {
     const [hover, setHover] = useState(false)
     const {data:session} = useSession()
 
@@ -33,11 +33,16 @@ const Song = ({sno, track, setGlobalCurrentSongId, setGlobalIsTrackPlaying}) => 
         );
     }
 
+    function selectArtist(artist){
+        setView("artist")
+        setGlobalArtistId((artist.id))
+      }
+
   return (
-    <div onClick={async () => await playSong(track)} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} className='grid grid-cols-2 text-neutral-400 text-sm py-4 px-5 hover:bg-white hover:bg-opacity-10 rounded-lg cursor-default'>
+    <div  onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)} className='grid grid-cols-2 text-neutral-400 text-sm py-4 px-5 hover:bg-white hover:bg-opacity-10 rounded-lg cursor-default'>
         <div className='flex items-center space-x-4'>
-            {hover? <PlayIcon className='h-5 w-5 text-white'/>:<p className='w-5'>{sno + 1}</p>}
-            <img className='h-10 w-10' src={track.album.images[0].url}/>
+            {hover? <PlayIcon onClick={async () => await playSong(track)} className='h-5 w-5 text-white'/>:<p className='w-5'>{sno + 1}</p>}
+            {track?.album?.images[0]?.url && <img className='h-10 w-10' src={track.album.images[0].url}/>}
             <div>
                 <p className='w-36 lg:w-64 text-white text-base truncate'>{track.name}</p>
                 <p className='w-36 truncate'>
@@ -45,7 +50,7 @@ const Song = ({sno, track, setGlobalCurrentSongId, setGlobalIsTrackPlaying}) => 
                         track.artists.map((artist, i) =>{
                             return(
                                 <>
-                                    <span className='hover:underline'>{artist.name}</span>
+                                    <span onClick={()=>selectArtist(artist)} className='hover:underline'>{artist.name}</span>
                                     <span>{i != track.artists.length -1 ? ", ": null}</span> {/**if not last artist in the list add a comma */}
                                 </>
                             )
