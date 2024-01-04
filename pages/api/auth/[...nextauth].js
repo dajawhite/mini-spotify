@@ -51,7 +51,7 @@ export const authOptions = {
   ],
   // Tokens allow interaction with Spotify api because they show you are verified
   // Keep user in login state upon refresh, closing tab, reopening tab
-  // Have to safe tokens inside browser (must encrypt!) 
+  // Have to save tokens inside browser (must encrypt!) 
   secret: process.env.JWT_SECRET, 
   // pages object used when there's a unique route for login page
   pages: {
@@ -60,7 +60,7 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, account }) {
         // Persist the OAuth access_token to the token right after signin 
-        // returned value is encrypted in stored in a cookie
+        // returned value is encrypted and stored in a cookie
 
         // case of first time
         if (account) {
