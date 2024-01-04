@@ -26,44 +26,38 @@ const Sidebar = ({view, setView, setGlobalPlaylistId}) => {
     }, [session])
     
   return (
-    <div className='w-64 text-neutral-400 grow-0 shrink-0 h-screen overflow-y-scroll border-r border-neutral-900  p-5  text-sm hidden md:inline-flex'>
+    <div className='w-64 text-neutral-400 grow-0 shrink-0 h-screen overflow-y-scroll border-r border-neutral-900 p-5 text-sm hidden md:inline-flex'>
         <div className='space-y-4'>
-        <div className='mt-1 mb-5'>
-            <SpotifySVG/>
+          <div className='mt-1 mb-5'>
+              <SpotifySVG/>
+          </div>
+          <button onClick={() =>setView("search")} className={`flex items-center space-x-2 hover:text-white ${view == "search" ? "text-white":null}`}>
+              <MagnifyingGlassCircleIcon className='h-5 w-5' /> 
+              <p>Search</p>
+          </button>
+          <button onClick={() =>setView("library")} className={`flex items-center space-x-2 hover:text-white ${view == "library" ? "text-white":null}`}>
+              <BuildingLibraryIcon className='h-5 w-5' /> 
+              <p>Your Library</p>
+          </button>
+          <hr className='border-neutral-900'/>
+          {
+              playlists.map((playlist) => {
+                  //truncate in classname?
+                  return ( 
+                      <p 
+                          onClick={()=>{
+                              setView("playlist") // if not in playlist view, go there
+                              setGlobalPlaylistId(playlist.id)
+                          }}
+                          key={playlist.id} 
+                          className='cursor-default hover:text-white w-52'
+                      >
+                          {playlist.name}
+                      </p>
+                  )
+              })
+          }
         </div>
-        
-        <button className='flex items-center space-x-2 hover:text-white'>
-            <HomeIcon className='h-5 w-5' /> 
-            <p>Home</p>
-        </button>
-        <button onClick={() =>setView("search")} className={`flex items-center space-x-2 hover:text-white ${view == "search" ? "text-white":null}`}>
-            <MagnifyingGlassCircleIcon className='h-5 w-5' /> 
-            <p>Search</p>
-        </button>
-        <button onClick={() =>setView("library")} className={`flex items-center space-x-2 hover:text-white ${view == "library" ? "text-white":null}`}>
-            <BuildingLibraryIcon className='h-5 w-5' /> 
-            <p>Your Library</p>
-        </button>
-        
-        <hr className='border-neutral-900'/>
-        {
-            playlists.map((playlist) => {
-                //truncate in classname?
-                return ( 
-                    <p 
-                        onClick={()=>{
-                            setView("playlist") // if not in playlist view, go there
-                            setGlobalPlaylistId(playlist.id)
-                        }}
-                        key={playlist.id} 
-                        className='cursor-default hover:text-white w-52'
-                    >
-                        {playlist.name}
-                    </p>
-                )
-            })
-        }
-    </div>
     </div>
   )
 }
