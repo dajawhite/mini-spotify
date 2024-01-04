@@ -29,7 +29,7 @@ const Sidebar = ({view, setView, setGlobalPlaylistId}) => {
     <div className='w-64 text-neutral-400 grow-0 shrink-0 h-screen overflow-y-scroll border-r border-neutral-900 p-5 text-sm hidden md:inline-flex'>
         <div className='space-y-4'>
           <div className='mt-1 mb-5'>
-              <SpotifySVG/>
+              <img src='/spotify.png'/>
           </div>
           <button onClick={() =>setView("search")} className={`flex items-center space-x-2 hover:text-white ${view == "search" ? "text-white":null}`}>
               <MagnifyingGlassCircleIcon className='h-5 w-5' /> 
