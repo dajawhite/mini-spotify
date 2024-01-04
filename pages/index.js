@@ -61,15 +61,16 @@ export default function Home() {
             />
           }
         </div>
-        <div className='sticky z-20 bottom-0 h-24 w-full'>
-          <Player 
+        
+      </main>
+      <div className="sticky z-20 bottom-0 w-full">
+          <Player
             globalCurrentSongId={globalCurrentSongId}
             setGlobalCurrentSongId={setGlobalCurrentSongId}
             setGlobalIsTrackPlaying={setGlobalIsTrackPlaying}
             globalIsTrackPlaying={globalIsTrackPlaying}
           />
-        </div>
-      </main>
+      </div>
     
     </>
   )
