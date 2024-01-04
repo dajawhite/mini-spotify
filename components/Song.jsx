@@ -49,10 +49,10 @@ const Song = ({sno, track, setGlobalCurrentSongId, setGlobalIsTrackPlaying, setV
                     {
                         track.artists.map((artist, i) =>{
                             return(
-                                <>
+                                <div key={i}>
                                     <span onClick={()=>selectArtist(artist)} className='hover:underline'>{artist.name}</span>
                                     <span>{i != track.artists.length -1 ? ", ": null}</span> {/**if not last artist in the list add a comma */}
-                                </>
+                                </div>
                             )
                         })
 

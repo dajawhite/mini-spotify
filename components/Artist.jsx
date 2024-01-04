@@ -13,7 +13,7 @@ const Artist = ({setView, globalArtistId, setGlobalArtistId ,setGlobalCurrentSon
     'from-yellow-500',
     'from-pink-500',
     'from-purple-500'
-]
+  ]
 
     const {data:session} = useSession()
     const [color, setColor] = useState(colors[0])
@@ -30,26 +30,27 @@ const Artist = ({setView, globalArtistId, setGlobalArtistId ,setGlobalCurrentSon
       const offset = 300
       const textOffset = 10
       if (scrollPos < offset){
-          const newOpacity = 1 - ((offset - scrollPos)/offset) // linearly grow from 0 to 1 as you scroll down
-          setOpacity(newOpacity)
-          setTextOpacity(0)
+        // this formula ensures opacity linearly grows from 0 to 1 as user scrolls down
+        const newOpacity = 1 - ((offset - scrollPos)/offset) 
+        setOpacity(newOpacity)
+        setTextOpacity(0)
       }
       else{
-          setOpacity(1)
-          const delta = scrollPos - offset
-          const newTextOpacity = 1 - ((textOffset - delta)/textOffset)
-          setTextOpacity(newTextOpacity)
+        setOpacity(1)
+        const delta = scrollPos - offset
+        const newTextOpacity = 1 - ((textOffset - delta)/textOffset)
+        setTextOpacity(newTextOpacity)
       }
   }
 
   async function getArtistData(){
     const response = await fetch(`https://api.spotify.com/v1/artists/${globalArtistId}`, {
-        headers: {
-            Authorization: `Bearer ${session.accessToken}` 
-        }
-      })
-      const data = await response.json()
-      return data
+      headers: {
+          Authorization: `Bearer ${session.accessToken}` 
+      }
+    })
+    const data = await response.json()
+    return data
   }
 
   async function getTopTracks(){
@@ -75,18 +76,18 @@ const Artist = ({setView, globalArtistId, setGlobalArtistId ,setGlobalCurrentSon
   useEffect(() => {
     //for fetch api use async function
     async function f() {
-        if(session && session.accessToken){            
-            setArtistData(await getArtistData())
-            setTopTracks(await getTopTracks())
-            setRelatedArtists(await getRelatedArtists())
-        }
+      if(session && session.accessToken){            
+        setArtistData(await getArtistData())
+        setTopTracks(await getTopTracks())
+        setRelatedArtists(await getRelatedArtists())
+      }
     }
     f()
-  }, [session, globalArtistId]) // include globalArtistId as dependency to ensure playlists change when a new one is clicked
+  }, [session, globalArtistId])
 
-useEffect(() =>{
-  setColor(shuffle(colors).pop())
-},[globalArtistId])
+  useEffect(() =>{
+    setColor(shuffle(colors).pop())
+  },[globalArtistId])
 
   return (
     <div className='flex-grow h-screen'>
