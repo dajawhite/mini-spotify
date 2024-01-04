@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 const Player = ({globalCurrentSongId, setGlobalCurrentSongId, setGlobalIsTrackPlaying, globalIsTrackPlaying}) => {
   const {data:session} = useSession()
   const [songInfo, setSongInfo] = useState(null)
+  const [alertUser, setAlertUser] = useState(false)
 
   
   async function fetchSongInfo(trackId){
@@ -57,6 +58,10 @@ const Player = ({globalCurrentSongId, setGlobalCurrentSongId, setGlobalIsTrackPl
         if(response.status == 204){
           setGlobalIsTrackPlaying(true)
           setGlobalCurrentSongId(data.item.id)
+          setAlertUser(false)
+        }
+        if (response.status == 404){
+          setAlertUser(true)
         }
       }
     }
@@ -88,6 +93,7 @@ const Player = ({globalCurrentSongId, setGlobalCurrentSongId, setGlobalIsTrackPl
   return (
     <div className='h-24 bg-neutral-900 border-t border-neutral-700 text-white grid grid-cols-3 text-xs md:text-base px-2 md:px-8'>
       <div className='flex items-center space-x-4'>
+        {alertUser && <p>Play spotify from one of your devices to activate this player.</p>}
         {/* song details */}
         {songInfo?.album.images[0].url && <img className='hidden md:inline h-10 w-10' src={songInfo.album.images[0].url}/>}
         <div>
