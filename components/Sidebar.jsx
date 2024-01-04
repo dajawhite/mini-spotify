@@ -41,21 +41,21 @@ const Sidebar = ({view, setView, setGlobalPlaylistId}) => {
           </button>
           <hr className='border-neutral-900'/>
           {
-              playlists.map((playlist) => {
-                  //truncate in classname?
-                  return ( 
-                      <p 
-                          onClick={()=>{
-                              setView("playlist") // if not in playlist view, go there
-                              setGlobalPlaylistId(playlist.id)
-                          }}
-                          key={playlist.id} 
-                          className='cursor-default hover:text-white w-52'
-                      >
-                          {playlist.name}
-                      </p>
-                  )
-              })
+            playlists.map((playlist) => {
+                //truncate in classname?
+                return ( 
+                    <p 
+                        onClick={()=>{
+                            setView("playlist") // if not in playlist view, go there
+                            setGlobalPlaylistId(playlist.id)
+                        }}
+                        key={playlist.id} 
+                        className='cursor-default hover:text-white w-52'
+                    >
+                        {playlist.name}
+                    </p>
+                )
+            })
           }
         </div>
     </div>
