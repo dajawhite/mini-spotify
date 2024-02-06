@@ -18,7 +18,8 @@ The Mini Spotify project is a simplified version of the Spotify application, lev
 The application secures user data and streamlines access by utilizing NextAuth for Spotify authentication, providing a secure and user-friendly login experience.
   
 ## Demo 🎥
-*Coming soon*
+[Video](https://drive.google.com/file/d/1Hcyf2-SUp1HZTgIaSsU_GJ8B9eD-VVm7/view?usp=sharing)
+
 
 ## Feedback ✨
 - If you have feedback, questions, or suggestions, email me at bydajalea@gmail.com
